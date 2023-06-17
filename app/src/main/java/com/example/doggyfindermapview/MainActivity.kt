@@ -1,6 +1,6 @@
 package com.example.doggyfindermapview
 
-import com.example.doggyfindermapview.R
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,15 +8,23 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.UiSettings
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
+
 // Implement OnMapReadyCallback.
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener {
-    private val DOG = LatLng(-31.952854, 115.857342)
+    // Determines whether or not you have internet access and stores it in a boolean
+    private val isConnected: Boolean
+        get() {
+            val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+            val networkInfo = connectivityManager.activeNetworkInfo
+            return networkInfo != null && networkInfo.isConnected
+        }
+
+    private val dogMarker = LatLng(-31.952854, 115.857342)
     private var markerDog: Marker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +35,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
+        // Check if you have internet access
+        if (isConnected) {
+            Toast.makeText(this, "Internet Access", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "No Internet Access Starting in offline mode", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     // Get a handle to the GoogleMap object and display marker.
@@ -34,8 +49,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         markerDog?.tag = 0
         markerDog = googleMap.addMarker(
             MarkerOptions()
-                .position(DOG)
-                .title("Dog Lat: " + DOG.latitude + ", Long: " + DOG.longitude)
+                .position(dogMarker)
+                .title("Dog Lat: " + dogMarker.latitude + ", Long: " + dogMarker.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         )
         googleMap.uiSettings.isZoomControlsEnabled = true
@@ -56,6 +71,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
 
         return false
     }
+
+
 
 
 }
