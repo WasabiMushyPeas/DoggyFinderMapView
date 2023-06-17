@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
                 .title("Dog Lat: " + DOG.latitude + ", Long: " + DOG.longitude)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         )
-        googleMap.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
         googleMap.uiSettings.isZoomControlsEnabled = true
         googleMap.uiSettings.isCompassEnabled = true
         googleMap.uiSettings.isMyLocationButtonEnabled = true
