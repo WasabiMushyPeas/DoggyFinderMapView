@@ -1,11 +1,12 @@
 package com.example.doggyfindermapview
 
-import android.R
+import android.R.layout
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -36,6 +37,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         super.onCreate(savedInstanceState)
         // Set the layout file as the content view.
         setContentView(R.layout.activity_main)
+
+
+
+
+        findViewById<Button>(R.id.download_button)
+            .setOnClickListener {
+                onButtonShowPopupWindowClick(findViewById(R.id.download_button))
+            }
+
 
         // Get a handle to the fragment and register the callback.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
