@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
+
 // Implement OnMapReadyCallback.
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListener {
     // Determines whether or not you have internet access and stores it in a boolean
@@ -37,6 +38,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
         super.onCreate(savedInstanceState)
         // Set the layout file as the content view.
         setContentView(R.layout.activity_main)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -110,8 +121,5 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, OnMarkerClickListe
             true
         }
     }
-
-
-
 
 }
